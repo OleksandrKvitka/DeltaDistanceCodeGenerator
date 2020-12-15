@@ -33,7 +33,7 @@ namespace BarcodeGenerator
             if (string.IsNullOrEmpty(Data))
                 throw new Exception("BarcodeGenerator: Input data can not be empty.");
 
-            var ibarcode = new Codabar(Data, Width, Height, _Scale);
+            var ibarcode = new DeltaDistance(Data, Width, Height, _Scale);
             Data = ibarcode.Data;
 
             return ibarcode.GenerateImage();
@@ -44,7 +44,7 @@ namespace BarcodeGenerator
             if (string.IsNullOrEmpty(Data))
                 throw new Exception("BarcodeGenerator: Input data can not be empty.");
 
-            var ibarcode = new Codabar(Data, Width, Height, _Scale);
+            var ibarcode = new DeltaDistance(Data, Width, Height, _Scale);
 
             return ibarcode.Encode();
         }
@@ -54,7 +54,7 @@ namespace BarcodeGenerator
             if (string.IsNullOrEmpty(Data))
                 throw new Exception("BarcodeGenerator: Input data can not be empty.");
 
-            var ibarcode = new Codabar(Data, Width, Height, _Scale);
+            var ibarcode = new DeltaDistance(Data, Width, Height, _Scale);
 
             return ibarcode.Decode(Data);
         }
