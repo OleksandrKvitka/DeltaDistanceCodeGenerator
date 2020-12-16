@@ -98,7 +98,7 @@ namespace WinForm_Test
                 barcode.Width = 300;
                 barcode.Height = 150;
                 barcode.SaveBarcode(pbBarcode.Image, txtBarcode.Text);
-                MessageBox.Show($"UPC-A Barcode saved: {txtBarcode.Text}", "EAN13", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Delta Distance Code saved: {txtBarcode.Text}", "EAN13", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             }
             catch (Exception ex)
