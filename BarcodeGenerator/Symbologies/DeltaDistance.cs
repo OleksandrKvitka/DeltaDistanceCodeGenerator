@@ -137,7 +137,7 @@
                 throw new Exception("Delta Distance format required min 2 char");
             if (!new Regex("^[0-9KLMO]+$").IsMatch(Data.ToUpper()))
                 throw new Exception("Delta Distance data contains invalid charecter");
-            //Data += CalculateCheckSymbol();
+            Data += CalculateCheckSymbol();
             return GetEncodedData();
         }
 
@@ -168,7 +168,7 @@
                     sum += digit % 10;
                 else
                     sum += digit;
-            } 
+            }
             int res = ClosestDec(sum) - sum;
             return res.ToString();
         }
@@ -206,6 +206,7 @@
 
         private void DrawBarcode(Graphics g, Point pt)
         {
+            Data += CalculateCheckSymbol();
             Data = "$" + Data + "%";
             float num1 = Width * Scale;
             float num2 = Height * Scale;
@@ -261,5 +262,5 @@
             throw new Exception("Wrong code format.");
         }
         #endregion
-	}
+    }
 }
