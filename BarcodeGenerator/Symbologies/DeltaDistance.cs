@@ -90,6 +90,14 @@
           {
             'o',
             "1010101010001000"
+          },
+          {
+            '$',
+            "1010101010100000"
+          },
+          {
+            '%',
+            "1010101000100010"
           }
         };
 
@@ -126,9 +134,10 @@
         public string Encode()
         {
             if (Data.Length < 2)
-                throw new Exception("Codabar format required min 2 char");
+                throw new Exception("Delta Distance format required min 2 char");
             if (!new Regex("^[0-9KLMO]+$").IsMatch(Data.ToUpper()))
                 throw new Exception("Delta Distance data contains invalid charecter");
+            //Data += CalculateCheckSymbol();
             return GetEncodedData();
         }
 
@@ -141,13 +150,54 @@
             return encodedData;
         }
 
+        private string CalculateCheckSymbol()
+        {
+            var data = Reverse(Data);
+            var mult = new List<int>();
+            int sum = 0;
+            for (int i = 2; i < Data.Length + 2; i++)
+            {
+                if (i % 2 == 0)
+                    mult.Add(DeltaDistanceDictionary[data[i - 2].ToString().ToUpper()] * 2);
+                else
+                    mult.Add(DeltaDistanceDictionary[data[i - 2].ToString().ToUpper()]);
+            }
+            foreach (int digit in mult)
+            {
+                if (digit > 9)
+                    sum += digit % 10;
+                else
+                    sum += digit;
+            } 
+            int res = ClosestDec(sum) - sum;
+            return res.ToString();
+        }
+
+        private int ClosestDec(int digit)
+        {
+            int res = digit;
+            while (res % 10 != 0)
+                res++;
+            return res;
+        }
+
+        private string Reverse(string str)
+        {
+            string reverseStr = "";
+            for (int i = str.Length - 1; i >= 0; i--)
+            {
+                reverseStr += str[i];
+            }
+            return reverseStr;
+        }
+
         public Bitmap GenerateImage()
         {
             if (Data.Length < 2)
-                throw new Exception("Codabar format required min 2 char");
+                throw new Exception("Delta Distance format required min 2 char");
             if (!new Regex("^[0-9KLMO]+$").IsMatch(Data.ToUpper()))
                 throw new Exception("Delta Distance data contains invalid charecter");
-            Bitmap bitmap = new Bitmap((int)(float)((double)Width * Scale * 100.0), (int)(float)((double)Height * Scale * 100.0));
+            Bitmap bitmap = new Bitmap((int)(float)((double)Width * Scale * 300.0), (int)(float)((double)Height * Scale * 100.0));
             Graphics g = Graphics.FromImage((Image)bitmap);
             DrawBarcode(g, new Point(0, 0));
             g.Dispose();
@@ -156,6 +206,7 @@
 
         private void DrawBarcode(Graphics g, Point pt)
         {
+            Data = "$" + Data + "%";
             float num1 = Width * Scale;
             float num2 = Height * Scale;
             float width = num1 / 87f;
@@ -173,7 +224,8 @@
             string str2 = str1.Substring(0, str1.Length - 1);
             string text = str2;
             float height = g.MeasureString(text, font).Height;
-            for (int startIndex = 0; startIndex < str2.Length; ++startIndex)
+            int startIndex = 0;
+            for (startIndex = 0; startIndex < str2.Length; ++startIndex)
             {
                 if (text.Substring(startIndex, 1) == "1")
                 {
@@ -185,6 +237,7 @@
                 num4 = x1;
             }
             g.Restore(gstate);
+            Data = Data.Substring(1, Data.Length - 2);
         }
         #endregion
 

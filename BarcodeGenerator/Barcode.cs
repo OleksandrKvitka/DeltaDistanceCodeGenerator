@@ -9,7 +9,7 @@ namespace BarcodeGenerator
         private float _Height = 1.2f;
         private float _Width = 2.5f;
         private readonly float _Scale = 0.8f;
-        private readonly string path = @"D:\Studing\University\!Магистратура\Бояринова\Lab";
+        private readonly string path = @"D:\University\5 term\Boyarinova\DB";
 
         public string Data { get; set; }
 
@@ -64,7 +64,7 @@ namespace BarcodeGenerator
             if(barcode == null)
                 throw new Exception("Barcode is null.");
 
-            //barcode.Save($"{path}\\barcode_{code}.png", ImageFormat.Png);
+            barcode.Save($"{path}\\barcode_{code}.png", ImageFormat.Png);
         }
     }
 }

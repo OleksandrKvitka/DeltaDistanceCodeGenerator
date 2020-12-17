@@ -141,9 +141,9 @@
             // 
             // pbBarcode
             // 
-            this.pbBarcode.Location = new System.Drawing.Point(261, 9);
+            this.pbBarcode.Location = new System.Drawing.Point(261, 10);
             this.pbBarcode.Name = "pbBarcode";
-            this.pbBarcode.Size = new System.Drawing.Size(330, 130);
+            this.pbBarcode.Size = new System.Drawing.Size(700, 130);
             this.pbBarcode.TabIndex = 6;
             this.pbBarcode.TabStop = false;
             // 
@@ -176,9 +176,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(889, 22);
             this.textBox1.TabIndex = 24;
-            this.textBox1.Text = "1010101010100000 1000101000101010 1010001010101000 1010001010101000 1010101000101" +
-    "000 1010001010101000 1000101010001010 1000100010101010 1010001010101000 10101010" +
-    "00100010";
+            this.textBox1.Text = "1010101010100000 1000101000101010 1010001010101000 1010001010101000 1010101000101000 1010001010101000 1000101010001010 1000100010101010 1010001010101000 1010100010100010 1010101000100010";
             // 
             // btnCreate
             // 
